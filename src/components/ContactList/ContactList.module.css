@@ -1,0 +1,21 @@
+.list {
+
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 15px;
+    margin-left: 10px;
+    margin-top: 10px;
+
+}
+
+
+.listItem {
+    display: flex;
+    width: 300px;
+    border: 1px solid black;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 2%;
+
+}
