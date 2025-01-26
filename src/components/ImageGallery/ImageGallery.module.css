@@ -1,15 +1,15 @@
 .gallery {
-  display: flex; /* Використовуємо Flexbox */
-  flex-wrap: wrap; /* Дозволяємо перенос елементів на новий ряд */
-  justify-content: space-between; /* Рівномірний розподіл між елементами */
-  gap: 4px; /* Відстань між елементами */
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  gap: 4px; 
   padding: 0;
   margin: 0;
-  list-style: none; /* Видаляємо стандартні маркери списку */
+  list-style: none;
   margin-top: 10px;
 }
 
 .galleryItem {
-  flex: 1 1 calc(25% - 4px); /* 4 елементи в рядок, враховуючи відступи */
-  box-sizing: border-box; /* Урахування відступів у розмірах */
+  flex: 1 1 calc(25% - 4px); 
+  box-sizing: border-box; 
 }

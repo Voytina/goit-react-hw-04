@@ -1,10 +1,10 @@
 import s from './LoadMoreBtn.module.css'
 
-export default function LoadMoreBtn ({handleLoadMore}){
+export default function LoadMoreBtn ({pagePlus}){
 
-    return(
+    return (
         <div className={s.containerBtn}>
-            <button className={s.btn} onClick={handleLoadMore}> Load more</button>
+            <button className={s.btn} onClick={pagePlus}>Load more</button>
         </div>
     )
 

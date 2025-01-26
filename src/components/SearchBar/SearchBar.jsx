@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import s from './SearchBar.module.css';
+
 import { CiSearch } from 'react-icons/ci';
 
-export default function SearchBar({ getQueverySearch }) {
-  const [val, setVal] = useState('');
+export default function SearchBar({ searchInput }) {
+  const [value, setValue] = useState('');
 
-  function submitForm(e) {
-
+  function onSubmitForm(e) {
     e.preventDefault();
-    getQueverySearch(val)
+    searchInput(value);
   }
 
   return (
     <header className={s.headerContainer}>
-      <form className={s.form} onSubmit={submitForm}>
+      <form className={s.form} onSubmit={onSubmitForm}>
         <div className={s.inputContainer}>
           <button type="submit" className={s.searchButton}>
             <CiSearch />
@@ -26,7 +26,7 @@ export default function SearchBar({ getQueverySearch }) {
             className={s.input}
             name="value"
             onChange={e => {
-              setVal(e.target.value);
+              setValue(e.target.value);
             }}
           />
         </div>
