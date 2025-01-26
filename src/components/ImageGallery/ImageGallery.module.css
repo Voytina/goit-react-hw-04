@@ -1,0 +1,15 @@
+.gallery {
+  display: flex; /* Використовуємо Flexbox */
+  flex-wrap: wrap; /* Дозволяємо перенос елементів на новий ряд */
+  justify-content: space-between; /* Рівномірний розподіл між елементами */
+  gap: 4px; /* Відстань між елементами */
+  padding: 0;
+  margin: 0;
+  list-style: none; /* Видаляємо стандартні маркери списку */
+  margin-top: 10px;
+}
+
+.galleryItem {
+  flex: 1 1 calc(25% - 4px); /* 4 елементи в рядок, враховуючи відступи */
+  box-sizing: border-box; /* Урахування відступів у розмірах */
+}

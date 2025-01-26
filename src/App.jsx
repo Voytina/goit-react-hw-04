@@ -1,49 +1,60 @@
-import { useEffect, useState } from 'react';
-import ContactForm from './components/ContactForm/ContactForm';
-import ContactList from './components/ContactList/ContactList';
-import SearchBox from './components/SearchBox/SearchBox';
+import getPhoto from './services/services';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const KEY_PHONE_BOOK = 'book';
+import SearchBar from './components/SearchBar/SearchBar';
+import ImageGallery from './components/ImageGallery/ImageGallery';
+import Loader from './components/Loader/Loader';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() => {
-    const data = JSON.parse(localStorage.getItem(KEY_PHONE_BOOK));
-
-    if (data) {
-      return data;
-    }
-    return [];
-  });
+  const [photos, setPhotos] = useState([]);
+  const [query, setQuery] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    localStorage.setItem(KEY_PHONE_BOOK, JSON.stringify(contacts));
-  }, [contacts]);
+    async function getAPI() {
+      if (!query) return;
+      try {
+        setIsError(false);
+        setIsLoader(true);
+        const { data } = await getPhoto(page, query);
+        setPhotos(prev => [...prev,...data.results]);
+      } catch (error) {
+        setIsError(true);
+        console.log(error);
+      } finally {
+        setIsLoader(false);
+      }
+    }
 
-  const [filter, setFilter] = useState('');
+    getAPI();
+  }, [page,query]);
 
-  const visibileTask = contacts.filter(value =>
-    value.name.toLowerCase().includes(filter.toLowerCase()),
-  );
+  
 
-  function addContact(values, action) {
-    const newContact = {
-      ...values,
-      id: crypto.randomUUID(),
-    };
-    setContacts(prev => [...prev, newContact]);
-    action.resetForm();
+  function getQueverySearch(val) {
+    if (val === query) return;
+    setQuery(val);
+    setPhotos([]);
   }
 
-  function deleteContact(id) {
-    setContacts(prev => prev.filter(value => value.id !== id));
+  function handleLoadMore() {
+    setPage(prev => prev + 1);
   }
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <ContactForm onAdd={addContact} />
-      <SearchBox search={filter} onSearch={setFilter} />
-      <ContactList list={visibileTask} onDelete={deleteContact} />
+      <ErrorMessage isError={isError} />
+      <SearchBar getQueverySearch={getQueverySearch} />
+      <ImageGallery photos={photos} />
+      {isLoader && <Loader />}
+      {!isLoader && photos.length > 0 && (
+        <LoadMoreBtn handleLoadMore={handleLoadMore} />
+      )}
     </div>
   );
 }
