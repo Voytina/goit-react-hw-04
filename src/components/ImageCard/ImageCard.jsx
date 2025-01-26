@@ -7,11 +7,14 @@ export default function ImageCard({ item, openModal, setSelectedImage }) {
     openModal();
   }
 
+  console.log(item);
+  
+
   return (
     <div>
       <img
         src={item.urls.small}
-        alt=""
+        alt={item.alt_description}
         className={s.image}
         onClick={handleClick}
       />

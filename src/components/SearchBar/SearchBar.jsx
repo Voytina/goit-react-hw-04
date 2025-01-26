@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import s from './SearchBar.module.css';
+import toast from "react-hot-toast";
+
 
 import { CiSearch } from 'react-icons/ci';
 
 export default function SearchBar({ searchInput }) {
+
+
   const [value, setValue] = useState('');
 
   function onSubmitForm(e) {
     e.preventDefault();
+    if (!value.trim()) {
+      toast.error('Please enter a query!');
+      return;
+  }
     searchInput(value);
   }
 
